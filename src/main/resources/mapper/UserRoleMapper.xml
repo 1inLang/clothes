@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lsp.clothes.mapper.UserRoleMapper">
+    <select id="selectRoleCodesByUserId" resultType="java.lang.String">
+        SELECT r.role_code
+        FROM user_role ur
+        INNER JOIN sys_role r ON r.id = ur.role_id
+        WHERE ur.user_id = #{userId}
+          AND r.status = 1
+          AND r.is_delete = 0
+        ORDER BY r.sort_order ASC, r.id ASC
+    </select>
+
+    <select id="countActiveUsersByRoleCode" resultType="long">
+        SELECT COUNT(1)
+        FROM user_role ur
+        INNER JOIN `user` u ON u.id = ur.user_id
+        INNER JOIN sys_role r ON r.id = ur.role_id
+        WHERE r.role_code = #{roleCode}
+          AND u.is_delete = 0
+          AND r.is_delete = 0
+    </select>
+</mapper>

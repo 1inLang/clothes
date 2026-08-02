@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lsp.clothes.mapper.SysPermissionMapper">
+
+    <resultMap id="BaseResultMap" type="com.lsp.clothes.model.entity.SysPermission">
+        <id property="id" column="id"/>
+        <result property="permissionName" column="permission_name"/>
+        <result property="permissionCode" column="permission_code"/>
+        <result property="permissionType" column="permission_type"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="path" column="path"/>
+        <result property="sortOrder" column="sort_order"/>
+        <result property="status" column="status"/>
+        <result property="description" column="description"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="isDelete" column="is_delete"/>
+    </resultMap>
+
+    <select id="selectByRoleId" resultMap="BaseResultMap">
+        SELECT p.id,
+               p.permission_name,
+               p.permission_code,
+               p.permission_type,
+               p.parent_id,
+               p.path,
+               p.sort_order,
+               p.status,
+               p.description,
+               p.create_time,
+               p.update_time,
+               p.is_delete
+        FROM sys_permission p
+        INNER JOIN sys_role_permission rp ON rp.permission_id = p.id
+        WHERE rp.role_id = #{roleId}
+          AND p.is_delete = 0
+        ORDER BY p.sort_order ASC, p.id ASC
+    </select>
+
+    <select id="selectPermissionCodesByRoleCode" resultType="java.lang.String">
+        SELECT p.permission_code
+        FROM sys_role r
+        INNER JOIN sys_role_permission rp ON rp.role_id = r.id
+        INNER JOIN sys_permission p ON p.id = rp.permission_id
+        WHERE r.role_code = #{roleCode}
+          AND r.status = 1
+          AND r.is_delete = 0
+          AND p.status = 1
+          AND p.is_delete = 0
+        ORDER BY p.sort_order ASC
+    </select>
+
+    <select id="selectPermissionCodesByUserId" resultType="java.lang.String">
+        SELECT p.permission_code
+        FROM user_role ur
+        INNER JOIN sys_role r ON r.id = ur.role_id
+        INNER JOIN sys_role_permission rp ON rp.role_id = r.id
+        INNER JOIN sys_permission p ON p.id = rp.permission_id
+        WHERE ur.user_id = #{userId}
+          AND r.status = 1
+          AND r.is_delete = 0
+          AND p.status = 1
+          AND p.is_delete = 0
+        GROUP BY p.permission_code, p.sort_order
+        ORDER BY p.sort_order ASC
+    </select>
+</mapper>
