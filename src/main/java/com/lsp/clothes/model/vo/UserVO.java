@@ -3,13 +3,14 @@ package com.lsp.clothes.model.vo;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 @Data
 public class UserVO implements Serializable {
     private static final long serialVersionUID = 1L;
     /**
      * id
      */
-    private Long id;
+    private String id;
 
     /**
      * 账号
@@ -35,4 +36,7 @@ public class UserVO implements Serializable {
      * 用户角色：user/admin
      */
     private String userRole;
+
+    private List<String> userRoles;
+
 }

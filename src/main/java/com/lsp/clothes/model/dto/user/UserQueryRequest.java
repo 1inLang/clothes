@@ -1,4 +1,4 @@
-package com.lsp.clothes.model.dto;
+package com.lsp.clothes.model.dto.user;
 
 import com.lsp.clothes.common.PageRequest;
 import lombok.Data;
@@ -38,6 +38,7 @@ public class UserQueryRequest extends PageRequest implements Serializable {
      * 用户角色：USER("普通用户", "user"),
      *     DESIGNER("设计师", "designer"),
      *     REVIEWER("审核人", "reviewer"),
+     *     PROJECT_ACCEPTOR("项目验收人", "project_acceptor"),
      *     PROJECT_MANAGER("项目经理", "project_manager"),
      *     ADMIN("管理员", "admin");
      */

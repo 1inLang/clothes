@@ -8,6 +8,7 @@ public enum UserRoleEnum {
     USER("普通用户", "user"),
     DESIGNER("设计师", "designer"),
     REVIEWER("审核人", "reviewer"),
+    PROJECT_ACCEPTOR("项目验收人", "project_acceptor"),
     PROJECT_MANAGER("项目经理", "project_manager"),
     ADMIN("管理员", "admin");
 

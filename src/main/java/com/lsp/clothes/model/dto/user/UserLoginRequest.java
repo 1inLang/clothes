@@ -1,4 +1,4 @@
-package com.lsp.clothes.model.dto;
+package com.lsp.clothes.model.dto.user;
 
 import lombok.Data;
 
